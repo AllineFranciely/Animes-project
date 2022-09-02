@@ -6,12 +6,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const http_status_codes_1 = require("http-status-codes");
 require("express-async-errors");
+const login_routes_1 = __importDefault(require("./routes/login.routes"));
+const animes_routes_1 = __importDefault(require("./routes/animes.routes"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 const PORT = 8000;
 app.get('/', (req, res) => {
     res.status(http_status_codes_1.StatusCodes.OK).send('Express + TypeScript');
 });
+app.use(login_routes_1.default);
+app.use(animes_routes_1.default);
 app.use((err, req, res, next) => {
     const { name, message, details } = err;
     console.log(`name: ${name}`);
