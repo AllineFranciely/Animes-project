@@ -17,7 +17,10 @@ class AnimesService {
     public async getById(id: number): Promise<Anime> {
         const anime = await this.model.getById(id);
         return anime;
-      }
-}
+    }
+
+    public create(anime: Anime): Promise<Anime> {
+        return this.model.create(anime);
+    }
 
 export default AnimesService;
