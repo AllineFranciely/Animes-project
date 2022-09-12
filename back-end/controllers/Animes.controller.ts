@@ -36,6 +36,13 @@ class AnimesController {
 
     res.status(StatusCodes.NO_CONTENT).end();
   };
+
+  public remove = async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    await this.animesService.remove(id);
+
+    res.status(StatusCodes.OK).json({ message: 'Anime deleted successfully' });
+  };
 }
 
 export default AnimesController;

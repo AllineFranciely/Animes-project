@@ -21,6 +21,31 @@ class AnimesController {
             const animes = yield this.animesService.getAll();
             res.status(http_status_codes_1.StatusCodes.OK).json(animes);
         });
+        this.getById = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const id = parseInt(req.params.id);
+            const anime = yield this.animesService.getById(id);
+            if (!anime) {
+                return res.status(http_status_codes_1.StatusCodes.NOT_FOUND)
+                    .json({ message: 'Anime not found!' });
+            }
+            res.status(http_status_codes_1.StatusCodes.OK).json(anime);
+        });
+        this.create = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const anime = req.body;
+            const animeCreated = yield this.animesService.create(anime);
+            res.status(http_status_codes_1.StatusCodes.CREATED).json(animeCreated);
+        });
+        this.update = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const id = Number(req.params.id);
+            const anime = req.body;
+            yield this.animesService.update(id, anime);
+            res.status(http_status_codes_1.StatusCodes.NO_CONTENT).end();
+        });
+        this.remove = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const id = Number(req.params.id);
+            yield this.animesService.remove(id);
+            res.status(http_status_codes_1.StatusCodes.OK).json({ message: 'Anime deleted successfully' });
+        });
     }
 }
 exports.default = AnimesController;

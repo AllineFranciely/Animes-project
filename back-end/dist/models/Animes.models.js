@@ -21,6 +21,14 @@ class AnimeModel {
             return rows;
         });
     }
+    getById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.connection.execute('SELECT * FROM animes WHERE id=?', [id]);
+            const [rows] = result;
+            const [anime] = rows;
+            return anime;
+        });
+    }
     create(anime) {
         return __awaiter(this, void 0, void 0, function* () {
             const { nome, temporadas, plataforma, situacao } = anime;
@@ -28,6 +36,17 @@ class AnimeModel {
             const [dataInserted] = result;
             const { insertId } = dataInserted;
             return Object.assign({ id: insertId }, anime);
+        });
+    }
+    update(id, anime) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { nome, temporadas, plataforma, situacao } = anime;
+            yield this.connection.execute('UPDATE animes SET nome=?, temporadas=?, plataforma=?, situacao=? WHERE id=?', [nome, temporadas, plataforma, situacao, id]);
+        });
+    }
+    remove(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.connection.execute('DELETE FROM animes WHERE id=?', [id]);
         });
     }
 }

@@ -32,6 +32,15 @@ class AnimesService {
 
         return this.model.update(id, anime);
     }
+
+    public async remove(id: number): Promise<void> {
+        const animeFound = await this.model.getById(id);
+        if (!animeFound) {
+            throw new NotFoundError('NotFoundError');
+        }
+
+        this.model.remove(id);
+    }
 }
 
 export default AnimesService;

@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const connection_1 = __importDefault(require("../models/connection"));
 const Animes_models_1 = __importDefault(require("../models/Animes.models"));
+const restify_errors_1 = require("restify-errors");
 class AnimesService {
     constructor() {
         this.model = new Animes_models_1.default(connection_1.default);
@@ -22,6 +23,33 @@ class AnimesService {
         return __awaiter(this, void 0, void 0, function* () {
             const animes = yield this.model.getAll();
             return animes;
+        });
+    }
+    getById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const anime = yield this.model.getById(id);
+            return anime;
+        });
+    }
+    create(anime) {
+        return this.model.create(anime);
+    }
+    update(id, anime) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const animeFound = yield this.model.getById(id);
+            if (!animeFound) {
+                throw new restify_errors_1.NotFoundError('NotFoundError');
+            }
+            return this.model.update(id, anime);
+        });
+    }
+    remove(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const animeFound = yield this.model.getById(id);
+            if (!animeFound) {
+                throw new restify_errors_1.NotFoundError('NotFoundError');
+            }
+            this.model.remove(id);
         });
     }
 }

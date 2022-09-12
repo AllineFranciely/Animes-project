@@ -40,4 +40,11 @@ export default class AnimeModel {
       [nome, temporadas, plataforma, situacao, id]
     );
   }
+
+  public async remove(id: number) {
+    await this.connection.execute(
+      'DELETE FROM animes WHERE id=?',
+      [id],
+    );
+  }
 }
