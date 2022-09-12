@@ -15,6 +15,13 @@ export default class AnimeModel {
     return rows as Anime[];
   }
 
+  public async getById(id: number): Promise<Anime> {
+    const result = await this.connection.execute('SELECT * FROM animes WHERE id=?', [id]);
+    const [rows] = result;
+    const [anime] = rows as Anime[];
+    return anime;
+  }
+
   public async create(anime: Anime): Promise<Anime> {
     const { nome, temporadas, plataforma, situacao } = anime;
     const result = await this.connection.execute<ResultSetHeader>(

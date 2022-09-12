@@ -13,6 +13,11 @@ class AnimesService {
         const animes = await this.model.getAll();
         return animes;
     }
+
+    public async getById(id: number): Promise<Anime> {
+        const anime = await this.model.getById(id);
+        return anime;
+      }
 }
 
 export default AnimesService;
