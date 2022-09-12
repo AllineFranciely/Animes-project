@@ -22,5 +22,6 @@ class AnimesService {
     public create(anime: Anime): Promise<Anime> {
         return this.model.create(anime);
     }
+}
 
 export default AnimesService;

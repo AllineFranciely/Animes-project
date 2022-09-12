@@ -21,6 +21,13 @@ class AnimesController {
     
         res.status(StatusCodes.OK).json(anime);
       }
+
+      public create = async (req: Request, res: Response) => {
+        const anime = req.body;
+    
+        const animeCreated = await this.animesService.create(anime);
+        res.status(StatusCodes.CREATED).json(animeCreated);
+      };
 }
 
 export default AnimesController;
