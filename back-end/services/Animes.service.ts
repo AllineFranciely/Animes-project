@@ -1,6 +1,7 @@
 import connection from '../models/connection';
 import AnimesModel from '../models/Animes.models';
 import Anime from '../Interfaces/Animes.interface';
+import { NotFoundError } from 'restify-errors';
 
 class AnimesService {
     public model: AnimesModel;
@@ -21,6 +22,15 @@ class AnimesService {
 
     public create(anime: Anime): Promise<Anime> {
         return this.model.create(anime);
+    }
+
+    public async update(id: number, anime: Anime): Promise<void> {
+        const animeFound = await this.model.getById(id);
+        if (!animeFound) {
+            throw new NotFoundError('NotFoundError');
+        }
+
+        return this.model.update(id, anime);
     }
 }
 

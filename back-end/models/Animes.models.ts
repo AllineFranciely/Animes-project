@@ -32,4 +32,12 @@ export default class AnimeModel {
     const { insertId } = dataInserted;
     return { id: insertId, ...anime };
   }
+
+  public async update(id: number, anime: Anime) {
+    const { nome, temporadas, plataforma, situacao } = anime;
+    await this.connection.execute(
+      'UPDATE animes SET nome=?, temporadas=?, plataforma=?, situacao=? WHERE id=?',
+      [nome, temporadas, plataforma, situacao, id]
+    );
+  }
 }
